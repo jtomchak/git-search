@@ -86,6 +86,9 @@ class User extends React.Component {
             {stats.map(this.renderStat)}
           </ul>
         </div>
+        <div className="user-extra">
+          {this.props.children}
+        </div>
       </div>
     );
   }
