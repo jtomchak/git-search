@@ -45,7 +45,6 @@ class Repos extends Component {
         </ul>
       </div>
     );
->>>>>>> Stashed changes
   }
 }
 
