@@ -4,10 +4,22 @@ import { Link } from "react-router";
 class User extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      user: {}
+    };
+    this.fetchUser.bind(this);
   }
 
   componentDidMount() {
+    this.fetchUser();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.params.username !== this.props.params.username) {
+      this.fetchUser();
+    }
+  }
+
+  fetchUser() {
     fetch(`https://api.github.com/users/${this.props.params.username}`)
       .then(resp => resp.json())
       .then(user => {
@@ -86,9 +98,8 @@ class User extends React.Component {
             {stats.map(this.renderStat)}
           </ul>
         </div>
-        <div className="user-extra">
-          {this.props.children}
-        </div>
+        <div className="user-extra" />
+        {this.props.children}
       </div>
     );
   }
