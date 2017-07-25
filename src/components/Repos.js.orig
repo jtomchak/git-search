@@ -1,30 +1,33 @@
 import React, { Component } from "react";
-import GithubUser from "./GithubUser";
+import GithubRepo from "./GithubRepo";
 
-class Following extends Component {
+class Repos extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   componentDidMount() {
-    var self = this; // What's this?? Make sure you remember or understand what this line does
-
+    let self = this;
     fetch(
-      `https://api.github.com/users/${this.props.params.username}/following`
+      `https://api.github.com/users/${this.props.params
+        .username}/repos?sort=updated`
     )
       .then(resp => resp.json())
-      .then(following => {
+      .then(repos => {
         // Why that.setState instead of this.setState??
         self.setState({
-          following: following
+          repos: repos
         });
       });
   }
 
   render() {
-    // If the state doesn't have a followers key, it means the FETCH didn't complete yet. Simply render a LOADING indicator.
-    if (!this.state.following) {
+<<<<<<< Updated upstream
+    return <div>What Repos</div>;
+=======
+    // If the state doesn't have a repos key, it means the AJAX didn't complete yet. Simply render a LOADING indicator.
+    if (!this.state.repos) {
       return <div className="followers-page">LOADING...</div>;
     }
 
@@ -32,20 +35,21 @@ class Following extends Component {
     return (
       <div className="followers-page">
         <h3>
-          Followed by {this.props.params.username}
+          {this.props.params.username}'s repos
         </h3>
         <ul className="followers-list">
-          {this.state.following.map(function(user) {
+          {this.state.repos.map(function(repo) {
             return (
-              <li key={user.id}>
-                <GithubUser user={user} />
+              <li key={repo.id}>
+                <GithubRepo repo={repo} />
               </li>
             );
           })}
         </ul>
       </div>
     );
+>>>>>>> Stashed changes
   }
 }
 
-export default Following;
+export default Repos;
